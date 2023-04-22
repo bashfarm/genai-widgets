@@ -1,59 +1,46 @@
+# Generative AI UI Components Library
+
 <div align="center">  
-    <img height="50"src="./src/assets/codux.svg">  
-    <h1>React App template for Codux</h1>
+    <img height="200"src="https://res.cloudinary.com/dxqgoyv5b/image/upload/v1676415362/bashful.ai/images/Branding/Logo/logo_1_hc5die.png">  
 </div>
 
-### A Visual IDE for React Projects
 
-Codux is an all-in-one visual development environment. Whether you’re starting a new app, creating components, or editing an existing project, every visual change you make reflects instantly in the code and vice versa. To learn more about Codux, visit our website - [https://www.codux.com/](https://www.codux.com/)
+## Introduction
 
-This project was bootstrapped with [`create-react-app`](https://github.com/facebook/create-react-app).
+At bashful.ai, we are excited to announce our new project, a UI Components Library created using generative AI. Our library includes a variety of React-based UI components that are designed to be easily integrated into your web application. Each component is created using generative AI technology, ensuring unique and creative designs.
 
-It includes a single React component to start your project with, a sample [`codux.config.json`](codux.config.json) with preconfigured keys, a `package.json` file to describe the project's packages and dependencies, and a folder and component structure to put everything neatly in its place.
+## Benefits of using Generative AI for UI Component Library
 
-- Edit, render and compose apps that make use of **`React`**-based components.
-- Create components with **`TypeScript`**, **`SCSS`** and **`CSS Modules`** support.
-- Visually edit in real-time and in an isolated environment.
+Our UI Components Library provides a modern and visually appealing look and feel to your web applications, and it is optimized for use with generative AI. We believe that the combination of AI and UI design creates a new level of innovation and creativity.
 
-### Available Scripts
+> "Our Generative AI UI Components Library is so good, it'll make your web apps feel like they were designed by a human...almost."
 
-In the project directory, you can run:
+## Features of the Library
 
-### `npm start`
+Our library is specifically designed for internal use only and is not open-source. It includes a variety of components, from buttons to forms, and we are continuously adding more components to our collection. We hope that our library will help our internal developers save time and effort by providing them with high-quality, visually stunning components that can be easily integrated into their projects.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+> "Our Generative AI UI Components Library is like having a team of designers at your fingertips, but without the pesky human emotions getting in the way."
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+To start using our Generative AI UI Components Library, please contact our internal development team to get access to the library. Once you have access, you can easily integrate the components into your web application.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Running Instructions
 
-### `npm run build`
+To run the Generative AI UI Components Library, follow these steps:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repository to your local machine.
+2. Install the necessary dependencies using `npm install`.
+3. Start the development server using `npm start`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Demo
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<div align="center">
+  <img src="https://res.cloudinary.com/dxqgoyv5b/image/upload/v1682191427/genai_components/React_App_-_Google_Chrome_-_22_April_2023_AdobeExpress_dm5yz4.gif" alt="Demo Gif" />
+</div>
 
-### `npm run eject`
+## Conclusion
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+We are excited to bring the power of generative AI to our UI Component Library and believe it will be a game-changer for our internal applications. If you have any questions or want to learn more about our company and our mission to create innovative AI-based solutions, please visit our website.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-### Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+> "At bashful.ai, we're not just creating technology, we're creating the future."
