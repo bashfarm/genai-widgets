@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { GenAISetting } from 'genai';
 import { useGenerateTextImage } from '../../hooks/ai_hooks';
+import LiquidLoader from '../liquid-loader/liquid-loader';
 
 interface GenAICardProps {
   description: string;
@@ -30,6 +31,7 @@ const GenAICard = ({ description, imgb64Str, genAISetting }: GenAICardProps) => 
     <div className="flex flex-col justify-start items-start bg-white rounded-lg shadow-lg p-6 max-w-md">
       <div className="relative w-full mb-4">
         <img src={imageUrl} alt="Generated" className="w-full h-auto rounded-lg" />
+        {loading && <LiquidLoader />}
         <button
           className="absolute top-2 right-2 bg-blue-500 text-white rounded-md px-2 py-1 hover:bg-blue-600 focus:outline-none"
           onClick={async () => {
