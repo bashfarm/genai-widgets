@@ -31,18 +31,11 @@ const GenAICard = ({ description, imgb64Str, genAISetting }: GenAICardProps) => 
     <div className="flex flex-col justify-start items-start bg-white rounded-lg shadow-lg p-6 max-w-md">
       <div className="relative w-full mb-4">
         <img src={imageUrl} alt="Generated" className="w-full h-auto rounded-lg" />
-        {loading && <LiquidLoader />}
-        <button
-          className="absolute top-2 right-2 bg-blue-500 text-white rounded-md px-2 py-1 hover:bg-blue-600 focus:outline-none"
-          onClick={async () => {
-            setLoading(true);
-            await handleGenerateClick();
-            setLoading(false);
-          }}
-          disabled={loading}
-        >
-          {loading ? 'Generating...' : 'Generate'}
-        </button>
+        {loading && 
+          <div className="absolute inset-0 flex items-center justify-center">
+            <LiquidLoader />
+          </div>
+          }
       </div>
       <label htmlFor="description" className="block text-gray-600 font-medium mb-2">
         Description:
@@ -64,6 +57,7 @@ const GenAICard = ({ description, imgb64Str, genAISetting }: GenAICardProps) => 
       >
         {loading ? 'Generating...' : 'Generate'}
       </button>
+      <button>yolo</button>
     </div>
   );
 };

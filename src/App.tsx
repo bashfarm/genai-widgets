@@ -8,7 +8,6 @@ function App() {
     return (
         <div className={styles.App}>
             <header className={styles['App-header']}>
-                <LiquidLoader/>
                 <GenAICard description='A talk epic tree with golden swords puncturing through it.'/>
             </header>
         </div>
