@@ -1,78 +1,58 @@
 import { useEffect, useState } from 'react';
 import { GenAISetting } from 'genai';
 import { useGenerateTextImage } from '../../hooks/ai_hooks';
-import LiquidLoader from '../liquid-loader/liquid-loader';
-import LiquidPotionLoader from '../liquid-potion-loader/liquid-potion-loader';
-import UnderglowButton from '../underglow-button/underglow-button';
+import GlowLoaderButton from '../glow-loader-button/glow-loader-button';
 
 interface GenAICardProps {
-    description: string;
-    imgb64Str?: string;
-    genAISetting?: GenAISetting;
+  description: string;
+  imgb64Str?: string;
+  genAISetting?: GenAISetting;
 }
 
 const GenAICard = ({ description, imgb64Str, genAISetting }: GenAICardProps) => {
-    const [editedDescription, setEditedDescription] = useState(description);
-    const [aiSetting, setAiSetting] = useState(
-        genAISetting ?? new GenAISetting({ prompt: editedDescription })
-    );
-    const [loading, setLoading] = useState(false);
+  const [editedDescription, setEditedDescription] = useState(description);
+  const [aiSetting, setAiSetting] = useState(genAISetting ?? new GenAISetting({ prompt: editedDescription }));
+  const [loading, setLoading] = useState(false);
+  
+  const { imageUrl, handleGenerateClick } = useGenerateTextImage(aiSetting);
 
-    const { imageUrl, handleGenerateClick } = useGenerateTextImage(aiSetting);
+  const handleDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setEditedDescription(event.target.value);
+  };
 
-    const handleDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setEditedDescription(event.target.value);
-    };
+  useEffect(() => {
+    setAiSetting({
+      ...aiSetting,
+      prompt: editedDescription,
+    } as GenAISetting);
+  }, [editedDescription]);
+    
+  return (
+    <div className="flex flex-col justify-start items-start bg-white rounded-lg shadow-lg p-6 max-w-md">
+      <div className="relative w-full mb-4">
+ 
+          <img src={imageUrl} alt="Generated" className="w-full h-auto rounded-lg" />
 
-    useEffect(() => {
-        setAiSetting({
-            ...aiSetting,
-            prompt: editedDescription,
-        } as GenAISetting);
-    }, [editedDescription]);
-
-    return (
-        <div className="flex flex-col justify-start items-start bg-white rounded-lg shadow-lg p-6 max-w-md">
-            <div className="relative w-full mb-4">
-                {loading ? (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                        <LiquidPotionLoader />
-                    </div>
-                ) : (
-                    <img src={imageUrl} alt="Generated" className="w-full h-auto rounded-lg" />
-                )}
-                {loading && (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                        <LiquidLoader />
-                    </div>
-                )}
-            </div>
-            <label htmlFor="description" className="block text-gray-600 font-medium mb-2">
-                Description:
-            </label>
-            <textarea
-                id="description"
-                className="w-full rounded-md border border-gray-300 focus:border-blue-500 px-3 py-2 mb-4 text-black"
-                value={editedDescription}
-                onChange={handleDescriptionChange}
-            />
-            <UnderglowButton
-                className="z-10"
-            >
-                <button
-                    className="bg-purple-500 w-full rounded-lg shadow-lg p-5 max-w-md"
-                    onClick={async () => {
-                        setLoading(true);
-                        await handleGenerateClick();
-                        setLoading(false);
-                    }}
-                    disabled={loading}
-                >
-                    {loading ? 'Generating...' : 'Generate'}
-                </button>
-            </UnderglowButton>
-        </div>
-    );
+              <GlowLoaderButton className='bg-purple-500' onClick={async () => {
+                setLoading(true);
+                await handleGenerateClick();
+                setLoading(false);
+              }}>
+                  <span className="ml-2">{loading ? 'Generating...' : 'Generate'}</span>
+              
+              </GlowLoaderButton>
+      </div>
+      <label htmlFor="description" className="block text-gray-600 font-medium mb-2">
+        Description:
+      </label>
+      <textarea
+        id="description"
+        className="w-full rounded-md border border-gray-300 focus:border-blue-500 px-3 py-2 mb-4 text-black"
+        value={editedDescription}
+        onChange={handleDescriptionChange}
+      />
+    </div>
+  );
 };
 
 export default GenAICard;
