@@ -36,7 +36,7 @@ const GenAICard = ({ description, imgb64Str, genAISetting }: GenAICardProps) => 
         <img src={imageUrl} alt="Generated" className="w-full h-auto rounded-lg" />
       </div>
       <div className="w-full h-full">
-        <Tooltip title="Enter a description here to generate an AI-generated image" placement="top">
+        <Tooltip title="Enter a description here to generate an AI-generated image.  You don't have to be detailed" placement="top">
           <label htmlFor="description" className="block text-gray-400 font-light text-sm mb-3 cursor-pointer">
             Description:
           </label>

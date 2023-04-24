@@ -1,19 +1,39 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import classNames from 'classnames';
 
 import styles from './info-bar.module.scss';
 
 interface InfoBarProps {
-  message: string;
+  message?: string;
   icon?: React.ReactNode;
   onClose?: () => void;
 }
 
 const InfoBar = ({ message, icon, onClose }: InfoBarProps) => {
-  const [closed, setClosed] = useState(false);
+  const [closed, setClosed] = useState(true);
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    if (message) {
+      setClosed(false);
+      setHeight(48);
+      const timer = setTimeout(() => {
+        setClosed(true);
+        setHeight(0);
+      }, 5000);
+      return () => clearTimeout(timer);
+    } else {
+      setHeight(0);
+      const timer = setTimeout(() => {
+        setClosed(true);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
 
   const handleClose = () => {
     setClosed(true);
+    setHeight(0);
 
     if (onClose) {
       onClose();
@@ -26,6 +46,7 @@ const InfoBar = ({ message, icon, onClose }: InfoBarProps) => {
         styles.root,
         closed ? styles.closed : styles.open
       )}
+      style={{ height }}
     >
       {icon && <div className={styles.icon}>{icon}</div>}
       <div className={styles.message}>{message}</div>

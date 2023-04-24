@@ -1,7 +1,7 @@
 import logo from './assets/logo.svg';
 import styles from './App.module.scss';
 import GenAICard from './components/gen-ai-card/gen-ai-card';
-import GlowLoaderButton from './components/glow-loader-button/glow-loader-button';
+import InfoBar from './components/info-bar/info-bar';
 
 
 function App() {
@@ -9,6 +9,7 @@ function App() {
 
             <header className={"bg-purple-500"}>
                 <GenAICard description='A talk epic tree with golden swords puncturing through it.'/>
+                <InfoBar message={'yolo'}/>
             </header>
     );
 }
