@@ -3,5 +3,5 @@ import GlowLoaderButton from '../../../components/glow-loader-button/glow-loader
 
 export default createBoard({
     name: 'GlowLoaderButton',
-    Board: () => <GlowLoaderButton onClick={ async () => {}} children={undefined} />
+    Board: () => <GlowLoaderButton onClick={async () => {}}>Generate{null}</GlowLoaderButton>,
 });

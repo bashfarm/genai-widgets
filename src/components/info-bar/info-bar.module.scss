@@ -1,0 +1,63 @@
+.root {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 0.5rem 1rem;
+    background-color: #f0f0f0;
+    color: #333;
+    border-radius: 0.25rem;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  
+    &.open {
+      max-height: 6rem;
+      opacity: 1;
+    }
+  
+    &.closed {
+      max-height: 0;
+      opacity: 0;
+      margin-bottom: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      overflow: hidden;
+    }
+  
+    & + .root {
+      margin-top: 1rem;
+    }
+  }
+  
+  .icon {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 0.5rem;
+  }
+  
+  .message {
+    flex-grow: 1;
+  }
+  
+  .close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  
+    &:hover,
+    &:focus {
+      outline: none;
+      transform: rotate(45deg);
+    }
+  
+    .closeIcon {
+      width: 1rem;
+      height: 1rem;
+    }
+  }

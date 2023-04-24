@@ -29,7 +29,7 @@ const GlowLoaderButton = ({ className, onClick, children }: Props) => {
             }}
             disabled={isLoading}
         >
-            Generate{children}
+            {children}
         </button>
     );
 };

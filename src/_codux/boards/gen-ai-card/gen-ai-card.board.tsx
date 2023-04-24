@@ -3,5 +3,5 @@ import GenAICard from '../../../components/gen-ai-card/gen-ai-card';
 
 export default createBoard({
     name: 'GenAICard',
-    Board: () => <GenAICard description={'yolodfdfg s'} />,
+    Board: () => <GenAICard description={'A tree with Golden Swords punctured throughout.'} />,
 });
