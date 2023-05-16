@@ -2,6 +2,7 @@
 
 
 
+import { Character } from '@/components/character-list/character-list';
 import User from '@/models/User';
 
 const myHeaders = new Headers();
@@ -10,30 +11,22 @@ myHeaders.append('Accept', 'application/json');
 // add additional headers here to disable CORS
 // myHeaders.append('Access-Control-Allow-Origin', '*');
 
-const AUTO1111_API_URL = 'http://127.0.0.1:7860';
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const STRAPI_API_URL="http://localhost:1337"
 
-const calling_application = 'Bashful: The AI Powered Photoshop Plugin';
+const calling_application = 'Story Builder';
 
-
-
-/**
- * This function is used to generate image using the bashful image api
- *
- * @returns {Object}
- */
 export async function GetUser(
   userID: number,
 ): Promise<User> {
   try {
 
     const requestOptions: RequestInit = {
-      method: 'POST',
+      method: 'GET',
       headers: myHeaders,
       redirect: 'follow',
     };
     const response = await fetch(
-      `${API_URL}/get_user?id=${userID}`,
+      `${STRAPI_API_URL}/api/users/${userID}?populate=*`,
       requestOptions
     );
 
@@ -45,3 +38,76 @@ export async function GetUser(
     throw e;
   }
 }
+
+
+export async function GetUsers(
+): Promise<User> {
+  try {
+
+    const requestOptions: RequestInit = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow',
+    };
+    const response = await fetch(
+      `${STRAPI_API_URL}/api/users?populate=*`,
+      requestOptions
+    );
+
+    const data = response.json();
+
+    return data;
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+
+export async function GetCharacters(
+  ): Promise<Character[]> {
+    try {
+  
+      const requestOptions: RequestInit = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow',
+      };
+      const response = await fetch(
+        `${STRAPI_API_URL}/api/characters?populate=*`,
+        requestOptions
+      );
+  
+      const data = response.json();
+  
+      return (await data).data;
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
+  }
+
+
+export async function getCharacterByID(
+  userID: number,
+  ): Promise<Character> {
+    try {
+  
+      const requestOptions: RequestInit = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow',
+      };
+      const response = await fetch(
+        `${STRAPI_API_URL}/api/characters/${userID}?populate=*`,
+        requestOptions
+      );
+  
+      const data = response.json();
+  
+      return data;
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
+  }

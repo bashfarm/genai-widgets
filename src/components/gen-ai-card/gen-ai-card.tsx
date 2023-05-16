@@ -3,6 +3,7 @@ import { GenAISetting } from 'genai';
 import { useGenerateTextImage } from '../../hooks/ai_hooks';
 import GlowLoaderButton from '../glow-loader-button/glow-loader-button';
 import { Tooltip } from '@mui/material';
+import InfoBar from '../info-bar/info-bar';
 
 interface GenAICardProps {
   description: string;
@@ -16,6 +17,7 @@ const GenAICard = ({ description, imgb64Str, genAISetting }: GenAICardProps) => 
     genAISetting ?? new GenAISetting({ prompt: editedDescription })
   );
   const [loading, setLoading] = useState(false);
+  const [hasRanBefore, setHasRanBefore] = useState(false);
 
   const { imageUrl, handleGenerateClick } = useGenerateTextImage(aiSetting);
 
@@ -57,12 +59,16 @@ const GenAICard = ({ description, imgb64Str, genAISetting }: GenAICardProps) => 
               setLoading(true);
               await handleGenerateClick();
               setLoading(false);
+              setHasRanBefore(true)
             }}
           >
             {loading ? 'Generating...' : 'Generate'}
           </GlowLoaderButton>
       </div>
         </Tooltip>
+        {/* Show info bar toast notifcation when generation is done */}
+        {(!loading && hasRanBefore) && <InfoBar message={'Image done generating'}/>} 
+
     </div>
   );
 };
