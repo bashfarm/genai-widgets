@@ -3,5 +3,7 @@ import  ChatBot from '../../../components/chat-bot/chat-bot';
 
 export default createBoard({
     name: 'ChatBot',
-    Board: () => <ChatBot />
+    Board: () => <ChatBot sendMessage={function (message: string): void {
+        throw new Error('Function not implemented.');
+    } } />
 });

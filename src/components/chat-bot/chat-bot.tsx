@@ -1,17 +1,30 @@
-import { useState } from 'react';
+import { useAsyncEffect } from '@/hooks/fetchHooks';
+import { useEffect, useState } from 'react';
 
-const Chatbot = () => {
+interface ChatbotProps {
+  sendMessage: (message: string) => void;
+  isDisabled?: boolean;
+}
+
+const Chatbot = (props: ChatbotProps) => {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<string[]>([]);
+  const [isDisabled, setIsDisabled] = useState<boolean>(props.isDisabled ?? false);
+
+  useEffect(() => {
+    setIsDisabled(props.isDisabled ?? false);
+  }, [props.isDisabled]);
+
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);
   };
 
-  const handleInputSubmit = (event: React.KeyboardEvent) => {
+  const handleInputSubmit = async (event: React.KeyboardEvent) => {
     if (event.key === 'Enter' && input.trim() !== '') {
       setMessages([input, ...messages]);
       setInput('');
+      props.sendMessage(input);
     }
   };
 
@@ -19,11 +32,13 @@ const Chatbot = () => {
     if (input.trim() !== '') {
       setMessages([input, ...messages]);
       setInput('');
+      props.sendMessage(input);
+
     }
   };
 
   return (
-    <div className="flex flex-col h-full p-4 bg-white text-black">
+    <div className="flex flex-col h-full p-4 bg-white text-black flex-grow">
       <div className="overflow-auto mb-4 flex-grow flex flex-col-reverse">
         {messages.map((message, index) => (
           <div key={index} className="border rounded p-2 mb-2 break-words">
@@ -31,7 +46,9 @@ const Chatbot = () => {
           </div>
         ))}
       </div>
-      <div className="flex items-center">
+      {isDisabled ? <div className="text-center">Chatbot is disabled</div> : 
+      <>
+            <div className="flex items-center">
         <input
           type="text"
           value={input}
@@ -44,6 +61,9 @@ const Chatbot = () => {
           Send
         </button>
       </div>
+      </>}
+
+
     </div>
   );
 };
