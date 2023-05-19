@@ -1,0 +1,2 @@
+export const DEFAULT_GEN_IMAGE = 'https://res.cloudinary.com/dxqgoyv5b/image/upload/v1679695129/bashful.ai/images/workflow%20assets/image_placeholder_m8updi.png';
+export const DEVHOST = 'http://localhost:1337';

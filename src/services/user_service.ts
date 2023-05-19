@@ -111,3 +111,27 @@ export async function getCharacterByID(
       throw e;
     }
   }
+
+  export async function updateCharacterByID(
+    userID: number,
+    ): Promise<Character> {
+      try {
+    
+        const requestOptions: RequestInit = {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow',
+        };
+        const response = await fetch(
+          `${STRAPI_API_URL}/api/characters/${userID}?populate=*`,
+          requestOptions
+        );
+    
+        const data = response.json();
+    
+        return data;
+      } catch (e) {
+        console.error(e);
+        throw e;
+      }
+    }

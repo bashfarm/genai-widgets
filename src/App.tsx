@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import GenAICard from './components/gen-ai-card/gen-ai-card';
 import CharacterCreator from './components/character-creator/character-creator';
 import Sidebar from './components/side-bar/side-bar';
+import Chatbot from './components/chat-bot/chat-bot'; // Import your Chatbot component
 import styles from './App.module.scss';
 import { GetCharacters } from '../src/services/user_service'; // Import the GetCharacters function
 import { Character } from './components/character-list/character-list';
 import { useAsyncEffect } from './hooks/fetchHooks';
+
+const TEMP_DEV_ONLY_PROJECT_ID=1
 
 function App() {
     const [currentComponent, setCurrentComponent] = useState('CharacterCreator');
@@ -17,7 +20,7 @@ function App() {
 
     let { loading, value } = useAsyncEffect(async () => {
         try {
-            const _characters = await GetCharacters();
+            const _characters = (await GetCharacters());
             setCharacters(_characters);
         } catch (e) {
             console.error(e);
@@ -26,10 +29,14 @@ function App() {
 
     return (
         <div className="flex h-screen bg-gray-900 text-white">
+
             <Sidebar setComponent={setCurrentComponent} />
+            <div className="w-1/4"> {/* Add a new section for the chatbot */}
+                <Chatbot />
+            </div>
             <div className="p-4 w-full overflow-auto flex flex-col items-center">
                 <header className="bg-purple-500 p-4 neon-text w-full">
-                    <h1 className="text-3xl">Novel Writing App</h1>
+                    <h1 className="text-3xl">{currentComponent}</h1>
                 </header>
                 {!loading && currentComponent === 'CharacterCreator' && (
                     <CharacterCreator characters={(() => {
