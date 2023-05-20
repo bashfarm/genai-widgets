@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppBar, Toolbar, IconButton, Menu, MenuItem, Button } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import { useSignOut} from 'react-auth-kit';
 
 interface AppHeaderProps {
     logo_url: string;
@@ -9,6 +10,7 @@ interface AppHeaderProps {
 export const AppHeader = ({logo_url}: AppHeaderProps) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const  signOut  = useSignOut();
 
   const handleMenu = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -16,6 +18,11 @@ export const AppHeader = ({logo_url}: AppHeaderProps) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    signOut();
+    handleClose();
   };
 
   return (
@@ -49,10 +56,13 @@ export const AppHeader = ({logo_url}: AppHeaderProps) => {
               onClose={handleClose}
             >
               <MenuItem onClick={handleClose}>
-                <Button variant="outlined" color="primary">Profile</Button>
+                <Button variant="outlined" color="secondary" sx={{ borderColor: '#000' }}>Profile</Button>
               </MenuItem>
               <MenuItem onClick={handleClose}>
-                <Button variant="outlined" color="primary">My account</Button>
+                <Button variant="outlined" color="secondary" sx={{ borderColor: '#000' }}>My account</Button>
+              </MenuItem>
+              <MenuItem onClick={handleLogout}>
+                <Button variant="outlined" color="secondary" sx={{ borderColor: '#000' }}>Logout</Button>
               </MenuItem>
             </Menu>
           </div>
