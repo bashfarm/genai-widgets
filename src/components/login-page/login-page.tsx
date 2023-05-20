@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, TextField, Typography } from '@mui/material';
-import { useSignIn } from 'react-auth-kit';
+import { useIsAuthenticated, useSignIn } from 'react-auth-kit';
+import { useNavigate } from 'react-router-dom';
 
 interface LoginPageProps {
     className?: string;
@@ -10,6 +11,13 @@ const LoginPage: React.FC<LoginPageProps> = ({ className }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const signIn = useSignIn();
+    const isAuthenticated = useIsAuthenticated()
+    const navigate = useNavigate()
+
+    if(isAuthenticated()){
+        // Redirect to Dashboard
+        navigate('/')
+    }
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
@@ -37,7 +45,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ className }) => {
             body: raw,
             redirect: 'follow',
         };
-        console.log(raw)
 
         let authRes = await fetch('http://localhost:1337/api/auth/local', requestOptions)
         let resData = (await authRes.json())
