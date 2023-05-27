@@ -1,7 +1,8 @@
 import React from 'react';
 import { AppBar, Toolbar, IconButton, Menu, MenuItem, Button } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-// import { useSignOut} from 'react-auth-kit';
+import { getAuth, signOut } from 'firebase/auth';
+import { useFirebaseApp } from 'reactfire';
 
 interface AppHeaderProps {
     logo_url: string;
@@ -10,7 +11,8 @@ interface AppHeaderProps {
 export const AppHeader = ({logo_url}: AppHeaderProps) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  // const  signOut  = useSignOut();
+  const app = useFirebaseApp();
+
 
   const handleMenu = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -21,8 +23,8 @@ export const AppHeader = ({logo_url}: AppHeaderProps) => {
   };
 
   const handleLogout = () => {
-    // signOut();
     handleClose();
+    signOut(getAuth(app));
   };
 
   return (

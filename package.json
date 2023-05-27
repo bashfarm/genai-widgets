@@ -17,6 +17,7 @@
     "@tailwindcss/forms": "^0.5.3",
     "classnames": "^2.3.2",
     "dotenv": "^16.0.3",
+    "firebase": "^9.22.1",
     "genai": "^0.0.18",
     "react": "^18.2.0",
     "react-auth-kit": "^2.12.2",

@@ -4,31 +4,37 @@ import AppHeader from './components/app-header/app-header';
 import GeneratedMediaSection from './components/generated-media-section/generated-media-section';
 import LoginPage from './components/login-page/login-page';
 import { Route, Routes } from 'react-router-dom';
-import { RequireAuth } from 'react-auth-kit';
+import { useSigninCheck } from 'reactfire';
 
 
 function App() {
     let [logo, setLogo] = useState<string>(
         'https://res.cloudinary.com/dxqgoyv5b/image/upload/v1676415362/bashful.ai/images/Branding/Logo/logo_1_hc5die.png'
     );
+    const { status, data: signInCheckResult } = useSigninCheck();
+
+    if (status === 'loading') {
+      return <span>loading...</span>;
+    }
     return (
         <div className="bg-black min-h-screen w-full flex flex-col">
-            {/* <Routes>
+            <Routes>
                 <Route
                     path="/"
                     element={
-                        // <RequireAuth loginPath="/login">
-                            <>
+                        signInCheckResult.signedIn === true ? 
+                             (
+                                <>
                                 <AppHeader logo_url={logo} />
                                 <Text2SVGPage className="flex-grow" />
                             </>
-                        // </RequireAuth>
-                    }
+                            )
+                            :  <LoginPage />
+                          }
                 />
                 <Route path="/login" element={<LoginPage />} />
-            </Routes> */}
-            <LoginPage/>
-            <div className='bg-white'>yolo</div>
+            </Routes>
+            {/* <LoginPage/> */}
             {/* <AppHeader logo_url={logo}/> */}
             {/* <Text2SVGPage className='flex-grow'/> */}
             {/* <LoginPage/> */}
