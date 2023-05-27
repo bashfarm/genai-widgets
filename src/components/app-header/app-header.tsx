@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppBar, Toolbar, IconButton, Menu, MenuItem, Button } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import { useSignOut} from 'react-auth-kit';
+// import { useSignOut} from 'react-auth-kit';
 
 interface AppHeaderProps {
     logo_url: string;
@@ -10,7 +10,7 @@ interface AppHeaderProps {
 export const AppHeader = ({logo_url}: AppHeaderProps) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const  signOut  = useSignOut();
+  // const  signOut  = useSignOut();
 
   const handleMenu = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -21,7 +21,7 @@ export const AppHeader = ({logo_url}: AppHeaderProps) => {
   };
 
   const handleLogout = () => {
-    signOut();
+    // signOut();
     handleClose();
   };
 

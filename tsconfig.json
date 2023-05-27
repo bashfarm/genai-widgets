@@ -15,9 +15,16 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "~/*": ["./public/*"]
+      "~/*": ["./public/*"],
+      "url": ["node_modules/url/url.js"],
+      "http": ["node_modules/stream-http/index.js"],
+      "https": ["node_modules/https-browserify/index.js"],
+      "crypto": ["node_modules/crypto-browserify/index.js"],
+      "path": ["node_modules/path-browserify/index.js"],
+      "stream": ["node_modules/stream-browserify/index.js"]
     },
   },
   "include": ["src"]

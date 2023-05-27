@@ -24,6 +24,11 @@ export type BashfulImageAPIResponse = {
   url: string;
 };
 
+export type BashfulSVGAPIResponse = {
+  image_url: string;
+  svg_url: string;
+};
+
 export type Text2ImgRequest = {
   enable_hr: boolean;
   denoising_strength: number;

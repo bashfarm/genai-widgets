@@ -11,9 +11,7 @@ myHeaders.append('Accept', 'application/json');
 // add additional headers here to disable CORS
 // myHeaders.append('Access-Control-Allow-Origin', '*');
 
-const STRAPI_API_URL="http://localhost:1337"
 
-const calling_application = 'Story Builder';
 
 export async function GetUser(
   userID: number,
@@ -26,7 +24,7 @@ export async function GetUser(
       redirect: 'follow',
     };
     const response = await fetch(
-      `${STRAPI_API_URL}/api/users/${userID}?populate=*`,
+      `${process.env.STRAPI_API_URL}/api/users/${userID}?populate=*`,
       requestOptions
     );
 
@@ -50,7 +48,7 @@ export async function GetUsers(
       redirect: 'follow',
     };
     const response = await fetch(
-      `${STRAPI_API_URL}/api/users?populate=*`,
+      `${process.env.STRAPI_API_URL}/api/users?populate=*`,
       requestOptions
     );
 
@@ -74,7 +72,7 @@ export async function GetCharacters(
         redirect: 'follow',
       };
       const response = await fetch(
-        `${STRAPI_API_URL}/api/characters?populate=*`,
+        `${process.env.STRAPI_API_URL}/api/characters?populate=*`,
         requestOptions
       );
   
@@ -99,7 +97,7 @@ export async function getCharacterByID(
         redirect: 'follow',
       };
       const response = await fetch(
-        `${STRAPI_API_URL}/api/characters/${userID}?populate=*`,
+        `${process.env.STRAPI_API_URL}/api/characters/${userID}?populate=*`,
         requestOptions
       );
   
@@ -123,7 +121,7 @@ export async function getCharacterByID(
           redirect: 'follow',
         };
         const response = await fetch(
-          `${STRAPI_API_URL}/api/characters/${userID}?populate=*`,
+          `${process.env.STRAPI_API_URL}/api/characters/${userID}?populate=*`,
           requestOptions
         );
     

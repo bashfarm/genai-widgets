@@ -1,14 +1,14 @@
 import { GenAISetting } from 'genai';
 
-import DomainConfig from '@/models/DomainConfig';
-import GenAIConfig from '@/models/GenAIConfig';
-
 import {
   BashfulAPIImg2ImgRequest,
   BashfulAPITxt2ImgRequest,
   BashfulImageAPIResponse,
+  BashfulSVGAPIResponse,
   ModelConfigResponse,
 } from '../models/SDAPI';
+import { calling_application } from '../constants/app_metadata';
+
 
 const myHeaders = new Headers();
 myHeaders.append('Content-Type', 'application/json');
@@ -16,10 +16,7 @@ myHeaders.append('Accept', 'application/json');
 // add additional headers here to disable CORS
 // myHeaders.append('Access-Control-Allow-Origin', '*');
 
-const AUTO1111_API_URL = 'http://127.0.0.1:7860';
-const API_URL = "https://us-central1-bashful-marketplace-381512.cloudfunctions.net";
 
-const calling_application = 'Bashful: The AI Powered Photoshop Plugin';
 
 
 /**
@@ -51,7 +48,7 @@ export async function BAPIImg2Img(
       redirect: 'follow',
     };
     const response = await fetch(
-      `${API_URL}/img2img`,
+      `${process.env.GCP_URL}/img2img`,
       requestOptions
     );
 
@@ -91,7 +88,7 @@ export async function BAPITxt2Img(
       redirect: 'follow',
     };
     const response = await fetch(
-      `${API_URL}/txt2img`,
+      `${process.env.GCP_URL}/txt2img`,
       requestOptions
     );
 
@@ -119,7 +116,7 @@ export async function getAvailableModelConfigs(): Promise<
   };
   try {
     const response = await fetch(
-      `${API_URL}/get_model_configs`,
+      `${process.env.GCP_URL}/get_model_configs`,
       requestOptions
     );
     const data = await response.json();
@@ -134,4 +131,44 @@ export async function getAvailableModelConfigs(): Promise<
 }
 
 
+
+/**
+ * This function is used to generate an SVG using the bashful image api
+ *
+ * @returns {Object}
+ */
+export async function BAPITxt2SVG(
+  genAISetting: GenAISetting
+): Promise<BashfulSVGAPIResponse> {
+  try {
+    console.log('genAISetting', genAISetting);
+    const payload: BashfulAPITxt2ImgRequest = {
+      prompt: genAISetting.prompt,
+      seed: genAISetting.seed,
+      guidance: genAISetting.stylingStrength,
+      styling_strength: genAISetting.stylingStrength,
+      negative_prompt: genAISetting.negativePrompt,
+      model_config: genAISetting.model_config,
+      calling_application: calling_application,
+    };
+
+    const requestOptions: RequestInit = {
+      method: 'POST',
+      headers: myHeaders,
+      body: JSON.stringify(payload),
+      redirect: 'follow',
+    };
+    const response = await fetch(
+      `${process.env.GCP_URL}/txt2svg`,
+      requestOptions
+    );
+
+    const data = response.json();
+
+    return data;
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
 
