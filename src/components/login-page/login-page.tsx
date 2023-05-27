@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, TextField, Typography, Link } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useFirebaseApp, useSigninCheck } from 'reactfire';
-import firebase from 'firebase/app';
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 interface LoginPageProps {
@@ -12,13 +11,14 @@ interface LoginPageProps {
 const LoginPage: React.FC<LoginPageProps> = ({ className }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [secondaryPassword, setSecondaryPassword] = useState('');
+    const [isSigningUp, setIsSigningUp] = useState(false);
     const navigate = useNavigate();
     const app = useFirebaseApp();
     const auth = getAuth(app);
     const { status, data: signInCheckResult } = useSigninCheck();
 
     if (signInCheckResult.signedIn === true) {
-        // Redirect to Dashboard
         navigate('/');
     }
 
@@ -30,6 +30,10 @@ const LoginPage: React.FC<LoginPageProps> = ({ className }) => {
         setPassword(event.target.value);
     };
 
+    const handleSecondaryPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSecondaryPassword(event.target.value);
+    };
+
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
@@ -38,17 +42,23 @@ const LoginPage: React.FC<LoginPageProps> = ({ className }) => {
             console.log('Login success:', user);
             navigate('/'); // Redirect to the dashboard after successful login
         } catch (error: any) {
-            if (error.code === 'auth/user-not-found') {
-                try {
-                    const createdUser = await createUserWithEmailAndPassword(auth, email, password);
-                    console.log('User created:', createdUser);
-                    navigate('/dashboard'); // Redirect to the dashboard after user creation
-                } catch (createError) {
-                    console.error('User creation error:', createError);
-                }
-            } else {
-                console.error('Login error:', error);
+            console.error('Login error:', error);
+        }
+    };
+
+    const handleSignUp = async (event: React.FormEvent) => {
+        event.preventDefault();
+
+        if (password === secondaryPassword) {
+            try {
+                const createdUser = await createUserWithEmailAndPassword(auth, email, password);
+                console.log('User created:', createdUser);
+                navigate('/'); // Redirect to the dashboard after user creation
+            } catch (createError) {
+                console.error('User creation error:', createError);
             }
+        } else {
+            console.error('Passwords do not match');
         }
     };
 
@@ -63,26 +73,64 @@ const LoginPage: React.FC<LoginPageProps> = ({ className }) => {
                 <Typography variant="h4" className="mb-4 text-white">
                     InstructArt
                 </Typography>
-                <form onSubmit={handleSubmit} className="w-2/3 p-4 bg-white rounded shadow-lg">
+                <form
+                    onSubmit={isSigningUp ? handleSignUp : handleSubmit}
+                    className="w-2/3 p-4 bg-white rounded shadow-lg"
+                >
                     <TextField
                         label="Email"
                         variant="outlined"
                         value={email}
                         onChange={handleEmailChange}
-                        className="w-full mb-4"
+                        className="w-full"
+                        InputProps={{
+                            className: 'bg-white m-2',
+                        }}
                     />
+
                     <TextField
                         label="Password"
                         variant="outlined"
                         type="password"
                         value={password}
                         onChange={handlePasswordChange}
-                        className="w-full mb-4"
+                        className="w-full"
+                        InputProps={{
+                            className: 'bg-white m-2',
+                        }}
                     />
+
+                    {isSigningUp && (
+                        <TextField
+                            label="Confirm Password"
+                            variant="outlined"
+                            type="password"
+                            value={secondaryPassword}
+                            onChange={handleSecondaryPasswordChange}
+                            className="w-full"
+                            InputProps={{
+                                className: 'bg-white m-2',
+                            }}
+                        />
+                    )}
                     <Button variant="contained" color="primary" type="submit" className="w-full">
-                        Login
+                        {isSigningUp ? 'Sign Up' : 'Login'}
                     </Button>
                 </form>
+                <div className="flex mt-4">
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                    <a href="#" className="mr-5 text-white">
+                        Forgot Password
+                    </a>
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                    <a
+                        href="#"
+                        className="text-white ml-3"
+                        onClick={() => setIsSigningUp(!isSigningUp)}
+                    >
+                        {isSigningUp ? 'Sign In' : 'Sign Up'}
+                    </a>
+                </div>
             </div>
             <div className="w-1/2 relative">
                 <img
